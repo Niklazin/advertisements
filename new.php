@@ -12,11 +12,11 @@
 <body>
 <div class = "container">
 <form action="new.php" method="POST" name="newad_form">
-    <table class="mt-5"> 
-        <tr>
-        <td>Tips</td>
-        <td>
-        <select name="ad_type" id="ad_type">
+    
+       <label for="ad_type">Type</label>
+     
+       
+        <select name="ad_type" id="ad_type" class="mb-2 form-control"> 
             <?php 
                 $types = mysqli_query($connection,"SELECT * from ad_type");
                 while($row = mysqli_fetch_array($types))
@@ -24,18 +24,18 @@
                     echo "<option value='".$row['name']."'>".$row['name']."</option>";
                 }
             ?>
-        </select></td>
-        </tr>               
+        </select>
+                  
  
-        <tr>
-            <td>Cena</td>
-            <td><Input type="Number" size = "30" name="cena" step="0.01" class="form-control"></td>
-        </tr>
-		
+      
+         <label for="cena">Cena</label>
+           <Input type="Number" size = "30" name="cena" step="0.01" class="form-control">
+
+        <label for="Image">Image(URL)(not necessary)</label>
+            <Input type="text" name="Image" class="form-control">
 		
 
 
-	</table>
         <label for="description">description</label>
         <input type="text" class="mb-2 form-control" name="description">
     
@@ -72,7 +72,7 @@
             <input class="mb-2 form-control" type="text" name="model">
 
             <label for="release_year">release year</label>
-            <input class="mb-2 form-control" type="number" name="release_year">
+            <input class="mb-2 form-control" type="number" name="phone_release_year">
         </div>
     
         <Input type="submit" id ="submit" name="new" value="Izveidot">
@@ -118,29 +118,107 @@
         echo 'type cena';
         exit();
     }
-    
-    if($_POST['ad_type'] == 'books'){
+
+    switch ($_POST['ad_type']) {
+        case 'books':
+            if(!isset($_POST['book_name']))
+                exit();
+            else if(!isset($_POST['author']))
+                exit();
+            else if(!isset($_POST['page_count']))
+                exit();
+            
+            $sql = "SELECT id FROM users where login = '{$_COOKIE['login']}'";
+            $user_id = mysqli_query($connection, $sql);
+            $user_id = $user_id->fetch_assoc();
+            
+            $sql = "INSERT INTO advertisement VALUES(0, {$user_id['id']}, '{$_POST['description']}', 1, {$_POST['cena']})";
+            mysqli_query($connection, $sql);
+
+            $sql = "SELECT LAST_INSERT_ID() as 'id'";
+            $a = mysqli_query($connection, $sql);
+            $ad_id = $a->fetch_assoc();
+            $ad_id = $ad_id['id'];
+            if(!empty($_POST['Image'])){
+                $query4 = mysqli_query($connection,"INSERT INTO `galery` VALUES (0, '$ad_id', '{$_POST['Image']}')");
+            }
+             
+            $sql = "INSERT INTO ad_books VALUES(0, '{$_POST['book_name']}', '{$_POST['author']}','{$_POST['page_count']}', $ad_id)";
+            mysqli_query($connection, $sql);
         
-        if(!isset($_POST['book_name']))
-            exit();
-        else if(!isset($_POST['author']))
-            exit();
-        else if(!isset($_POST['page_count']))
-            exit();
+            echo "added"; 
+            break;
         
-        $sql = "SELECT id FROM users where login = '{$_COOKIE['login']}'";
-        $user_id = mysqli_query($connection, $sql);
-        $user_id = $user_id->fetch_assoc();
+        case 'cars':
+            if(!isset($_POST['car_mark']))
+                exit();
+            else if(!isset($_POST['car_model']))
+                exit();
+            else if(!isset($_POST['phone_release_year']))
+                exit();
+            else if (!isset($_POST['mileage']))
+                exit();
+
+            $sql = "SELECT id FROM users where login = '{$_COOKIE['login']}'";
+            $user_id = mysqli_query($connection, $sql);
+            $user_id = $user_id->fetch_assoc();
+            
+            $sql = "INSERT INTO advertisement VALUES(0, {$user_id['id']}, '{$_POST['description']}', 2, {$_POST['cena']})";
+            mysqli_query($connection, $sql);
+
+            $sql = "SELECT LAST_INSERT_ID() as 'id'";
+            $a = mysqli_query($connection, $sql);
+            $ad_id = $a->fetch_assoc();
+            $ad_id = $ad_id['id'];
+            if(!empty($_POST['Image'])){
+                $query4 = mysqli_query($connection,"INSERT INTO `galery` VALUES (0, '$ad_id', '{$_POST['Image']}')");
+            }
+             
+            $sql = "INSERT INTO ad_car VALUES(0, $ad_id,'{$_POST['release_year']}', '{$_POST['mileage']}','{$_POST['car_mark']}', '{$_POST['car_model']}')";
+            mysqli_query($connection, $sql);
         
-        $sql = "INSERT INTO advertisement VALUES(0, {$user_id['id']}, '{$_POST['description']}', 1, {$_POST['cena']})";
-        mysqli_query($connection, $sql);
-         
-        $sql = "INSERT INTO ad_books VALUES(0, '{$_POST['book_name']}', '{$_POST['author']}','{$_POST['page_count']}', LAST_INSERT_ID())";
-        mysqli_query($connection, $sql);
-    
-       echo "added"; 
+            echo "added"; 
+
+            break;
+
+        case 'phones':
+            if(!isset($_POST['brand']))
+                exit();
+            else if(!isset($_POST['model']))
+                exit();
+            else if(!isset($_POST['phone_release_year']))
+                exit();
+            
+            $sql = "SELECT id FROM users where login = '{$_COOKIE['login']}'";
+            $user_id = mysqli_query($connection, $sql);
+            $user_id = $user_id->fetch_assoc();
+            
+            $sql = "INSERT INTO advertisement VALUES(0, {$user_id['id']}, '{$_POST['description']}', 3, {$_POST['cena']})";
+            mysqli_query($connection, $sql);
+
+            $sql = "SELECT LAST_INSERT_ID() as 'id'";
+            $a = mysqli_query($connection, $sql);
+            $ad_id = $a->fetch_assoc();
+            $ad_id = $ad_id['id'];
+            if(!empty($_POST['Image'])){
+                $query4 = mysqli_query($connection,"INSERT INTO `galery` VALUES (0, '$ad_id', '{$_POST['Image']}')");
+            }
+             
+            $sql = "INSERT INTO ad_phones VALUES(0,$ad_id, '{$_POST['brand']}', '{$_POST['model']}','{$_POST['phone_release_year']}')";
+            mysqli_query($connection, $sql);
         
+            echo "added"; 
+            break;
+
+
+        default:
+            # code...
+            break;
     }
+    
+
+
+
 
 	
 

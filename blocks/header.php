@@ -10,8 +10,15 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="../pages/Cars.php">Cars</a>
+        <a class="nav-link" href="cars.php">Cars</a>
      </li>
+
+      <li class="nav-item">
+        <a class="nav-link mr-2 mb-2" href="books.php">Books</a>
+     </li> 
+      <li class="nav-item">
+        <a class="nav-link mr-2 mb-2" href="phones.php">Phones</a>
+     </li> 
      
      <?php if (!isset($_COOKIE['login'])): ?>
      <li class="nav-item">
@@ -19,7 +26,7 @@
      </li>
      
      <li class="nav-item">
-        <a class="nav-link" href="auth.php">login</a>
+        <a class="nav-link" href="auth.php">Login</a>
      </li>
      <?php else: ?>
      <li class="nav-item">
@@ -31,18 +38,10 @@
      </li> 
     <?php endif; ?> 
      
-     <li class="nav-item">
-        <a class="nav-link mr-2 mb-2" href="books.php">books</a>
-     </li> 
-      
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
+ 
+  
     </ul>
-    <form class="form-inline mt-2 mt-md-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    
   </div>
 </nav>
 
