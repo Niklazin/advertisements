@@ -20,9 +20,18 @@
                         $advs = mysqli_query($connection, $sql);
                         //print books
                         while($adv = $advs->fetch_assoc()){
+                            
                             echo "<div class='mb-2 jumbotron'>
-                                  <p><b> cat: cars </b></p>
-                                  <p> mark: {$adv['car_mark']} </p>
+                                  <p><b> cat: cars </b></p>";
+                            
+                                  $foto = mysqli_query($connection,"SELECT img_link from galery where ad_id = '{$adv['ad_id']}'");
+                                  while ($fotos = mysqli_fetch_array($foto)) {
+                                        
+                                      echo "<img src='".$fotos['img_link']."' class='img-fluid' alt='Responsive image'>";
+                                      
+                                  }
+                                  
+                            echo "<p> mark: {$adv['car_mark']} </p>
                                   <p> model: {$adv['car_model']} </p>
                                   <p> description: {$adv['description']} </p>
                                   <p> cena: {$adv['cena']} &euro;</p>

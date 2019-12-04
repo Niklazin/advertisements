@@ -18,7 +18,7 @@
                                     INNER JOIN users as u on u.id = a.user_id";
 
                         $advs = mysqli_query($connection, $sql);
-                        //print books
+                        //print phones
                         while($adv = $advs->fetch_assoc()){
                             echo "<div class='mb-2 jumbotron'>
                                   <p><b> cat: books </b></p>";
@@ -68,7 +68,7 @@
                                     INNER JOIN users as u on u.id = a.user_id";
 
                         $advs = mysqli_query($connection, $sql);
-                        //print books
+                        //print cars
                         while($adv = $advs->fetch_assoc()){
                             echo "<div class='mb-2 jumbotron'>
                                   <p><b> cat: phones </b></p>";
