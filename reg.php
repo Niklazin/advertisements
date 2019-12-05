@@ -65,6 +65,7 @@
                        if(data == 1){
                            $("#reg_user").text("ok")
                            $("#errorBlock").hide();
+                           window.location.replace("auth.php");
                        }else{
                            $("#errorBlock").show();
                            $("#errorBlock").text(data);

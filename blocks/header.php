@@ -36,6 +36,10 @@
      <li class="nav-item">
         <a class="nav-link mr-2 mb-2" href="new.php">add advertisement</a>
      </li> 
+     
+     <li class="nav-item">
+        <a class="nav-link" href="myAdv.php">My advertisements</a>
+     </li>
     <?php endif; ?> 
      
  

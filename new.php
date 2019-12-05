@@ -206,17 +206,16 @@
              
             $sql = "INSERT INTO ad_phones VALUES(0,$ad_id, '{$_POST['brand']}', '{$_POST['model']}','{$_POST['phone_release_year']}')";
             mysqli_query($connection, $sql);
-        
+            
             echo "added"; 
+            
             break;
 
-
-        default:
-            # code...
-            break;
+            
+       
     }
     
-
+    
 
 
 
